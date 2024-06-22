@@ -1,6 +1,36 @@
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
+using ProductManagementSystem.Application.Interfaces;
+using ProductManagementSystem.Application.Mapping;
+using ProductManagementSystem.Application.Services;
+using ProductManagementSystem.Domain.Entities;
+using ProductManagementSystem.Domain.Interfaces;
+using ProductManagementSystem.Infrastructure;
+using ProductManagementSystem.Infrastructure.Repository;
+using AutoMapper;
+using Microsoft.Extensions.DependencyInjection;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+var configuration = builder.Configuration;
+
+// Register AutoMapper (assuming you are using AutoMapper)
+IServiceCollection serviceCollection = builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly); // Adjust according to where your AutoMapper profiles are located
+
+builder.Services.AddAutoMapper(typeof(Program));
+
+
+// Register repositories and other services
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+builder.Services.AddScoped<IGenericRepository<Product>, GenericRepository<Product>>();
+builder.Services.AddScoped<IProductService, ProductService>();
+
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+{
+    options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+});
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

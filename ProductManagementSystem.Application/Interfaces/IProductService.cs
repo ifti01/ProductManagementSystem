@@ -1,6 +1,8 @@
-﻿namespace ProductManagementSystem.Application.Interfaces
+﻿using ProductManagementSystem.Application.DTOs;
+
+namespace ProductManagementSystem.Application.Interfaces
 {
-    public class IProductService
+    public interface IProductService
     {
         Task<IEnumerable<ProductDto>> GetAllProductsAsync();
         Task<ProductDto> GetProductByIdAsync(int id);
