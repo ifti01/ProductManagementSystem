@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using ProductManagementSystem.Application.Interfaces;
 using ProductManagementSystem.Application.Mapping;
@@ -7,8 +6,7 @@ using ProductManagementSystem.Domain.Entities;
 using ProductManagementSystem.Domain.Interfaces;
 using ProductManagementSystem.Infrastructure;
 using ProductManagementSystem.Infrastructure.Repository;
-using AutoMapper;
-using Microsoft.Extensions.DependencyInjection;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,16 +14,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 var configuration = builder.Configuration;
 
-// Register AutoMapper (assuming you are using AutoMapper)
-IServiceCollection serviceCollection = builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly); // Adjust according to where your AutoMapper profiles are located
-
-builder.Services.AddAutoMapper(typeof(Program));
 
 
 // Register repositories and other services
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<IGenericRepository<Product>, GenericRepository<Product>>();
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddAutoMapper(typeof(MappingProfile));
+
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
