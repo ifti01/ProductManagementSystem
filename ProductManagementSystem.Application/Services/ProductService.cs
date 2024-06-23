@@ -1,4 +1,5 @@
-﻿using ProductManagementSystem.Application.DTOs;
+﻿using AutoMapper;
+using ProductManagementSystem.Application.DTOs;
 using ProductManagementSystem.Application.Interfaces;
 using ProductManagementSystem.Domain.Entities;
 using ProductManagementSystem.Domain.Interfaces;
