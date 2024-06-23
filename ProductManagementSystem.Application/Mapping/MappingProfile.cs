@@ -11,6 +11,9 @@ namespace ProductManagementSystem.Application.Mapping
             // Define your mappings here
             CreateMap<Product, ProductDto>().ReverseMap();
             CreateMap<Variant, VariantDto>().ReverseMap();
+            CreateMap<Order, OrderDto>().ReverseMap();
+            CreateMap<OrderItem, OrderItemDto>().ReverseMap();
+            CreateMap<UserInfo, UserInfoDto>().ReverseMap();
             // Add more mappings as needed
         }
     }
